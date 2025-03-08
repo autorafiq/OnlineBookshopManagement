@@ -178,6 +178,7 @@
                   <p>Author Management</p>
                 </a>
               </li>
+
               <li class="nav-item">
                 <a href="./order.html" class="nav-link active">
                   <i class="nav-icon bi bi-speedometer"></i>
@@ -205,16 +206,35 @@
           <div class="container-fluid">
             <!--begin::Row-->
             <div class="row">
-              <div class="col-12 d-flex justify-content-between">
-                <h3 class="mb-0">Order Management</h3>
-
+              <div class="col-sm-6">
+                <h3 class="mb-0">Book Management</h3>
+              </div>
+              <div class="col-3">
                 <button
                   class="btn btn-primary"
                   data-bs-toggle="modal"
-                  data-bs-target="#createOrderModal"
+                  data-bs-target="#addBookModal"
                 >
-                  New Order
+                  Add New Book
                 </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Title</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Stock Qty</th>
+                      <th scope="col">Update</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bookList"></tbody>
+                </table>
               </div>
             </div>
             <!--end::Row-->
@@ -224,171 +244,24 @@
         <div class="app-content">
           <!--begin::Container-->
           <div class="container-fluid">
-            <!-- Info boxes -->
-            <div class="row">
-              <div class="col-12">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Order ID</th>
-                      <th scope="col">Customer Name</th>
-                      <th scope="col">Customer Email</th>
-                      <th scope="col">Order Date</th>
-                      <th scope="col">Total Amount</th>
-                      <th scope="col">View</th>
-                      <th scope="col">Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody id="orderList"></tbody>
-                </table>
-              </div>
-            </div>
-            <!-- /.row -->
+            <div class="row"></div>
           </div>
           <!--end::Container-->
         </div>
 
-        <!-- Order Create Modal -->
+        <!-- Add Book Modal -->
         <div
-          class="modal fade"
-          id="createOrderModal"
+          class="modal fade modal-lg"
+          id="addBookModal"
           tabindex="-1"
-          aria-labelledby="createOrderModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="createOrderModalLabel">
-                  Create New Order
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <div id="orderForm">
-                  <!-- Select Customer -->
-                  <div class="mb-3">
-                    <label for="customerSelect" class="form-label"
-                      >Select Customer</label
-                    >
-                    <select id="customerSelect" class="form-select" required>
-                      <option value="">Loading Customers...</option>
-                    </select>
-                  </div>
-
-                  <!-- Book Selection Area -->
-                  <div id="bookList">
-                    <h6>Books</h6>
-                    <div id="booksContainer"></div>
-                    <button
-                      type="button"
-                      class="btn btn-primary mt-2"
-                      onclick="addBookRow()"
-                    >
-                      + Add Book
-                    </button>
-                  </div>
-
-                  <div class="mt-3 text-end">
-                    <button
-                      type="button"
-                      class="btn btn-success"
-                      onclick="createOrder()"
-                    >
-                      Create Order
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--Create Order Modal -->
-
-        <!-- Order Details Modal -->
-        <div
-          class="modal fade"
-          id="orderDetailsModal"
-          tabindex="-1"
-          aria-labelledby="orderDetailsModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="orderDetailsModalLabel">
-                  Order Details
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <!-- Order Info -->
-                <div id="orderInfo">
-                  <h6>
-                    <strong>Customer:</strong> <span id="customerName"></span>
-                  </h6>
-                  <h6>
-                    <strong>Email:</strong> <span id="customerEmail"></span>
-                  </h6>
-                  <h6>
-                    <strong>Order Date:</strong> <span id="orderDate"></span>
-                  </h6>
-                  <h6>
-                    <strong>Total Amount:</strong> $<span
-                      id="totalAmount"
-                    ></span>
-                  </h6>
-                </div>
-
-                <hr />
-
-                <!-- Order Details -->
-                <div id="orderDetailsList">
-                  <h5>Order Items</h5>
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>Book Title</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                      </tr>
-                    </thead>
-                    <tbody id="orderItemsTableBody">
-                      <!-- Book rows will be populated here dynamically -->
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Order Details Modal -->
-
-        <!-- Delete Order Modal -->
-        <div
-          class="modal fade"
-          id="deleteOrderModal"
-          tabindex="-1"
-          aria-labelledby="deleteOrderModalLabel"
+          aria-labelledby="addBookModalLabel"
           aria-hidden="true"
         >
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteOrderModalLabel">
-                  Do you want to delete this order?
+                <h1 class="modal-title fs-5" id="addBookModalLabel">
+                  Add New Book
                 </h1>
                 <button
                   type="button"
@@ -398,7 +271,126 @@
                 ></button>
               </div>
               <div class="modal-body">
-                <p>Once deleted, this action cannot be undone!</p>
+                <div class="mb-3">
+                  <label class="form-label">Book Title</label>
+                  <input type="text" class="form-control" id="titleID" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Price</label>
+                  <input type="text" class="form-control" id="priceID" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Stock Qty</label>
+                  <input type="text" class="form-control" id="stockID" />
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Author Id</label>
+                  <input type="text" class="form-control" id="authorID" />
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  onclick="addBook()"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Book Modal -->
+        <div
+          class="modal fade modal-lg"
+          id="editBookModal"
+          tabindex="-1"
+          aria-labelledby="editBookModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editBookModalLabel">
+                  Update Book 
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label class="form-label">Book Title</label>
+                  <input type="text" class="form-control" id="titleIDE" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Price</label>
+                  <input type="text" class="form-control" id="priceIDE" />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Stock Qty</label>
+                  <input type="text" class="form-control" id="stockIDE" />
+                </div>
+                               
+                
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  onclick="updateBook()"
+                  type="button"
+                  class="btn btn-primary"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delete Author Modal -->
+        <div
+          class="modal fade"
+          id="deleteAuthorModal"
+          tabindex="-1"
+          aria-labelledby="deleteAuthorModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteAuthorModalLabel">
+                  Do you wanna delete?
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <p>Once you delete can not retrive !</p>
               </div>
               <div class="modal-footer">
                 <button
@@ -409,17 +401,16 @@
                   No
                 </button>
                 <button
-                  onclick="deleteOrderFinally()"
+                  onclick="deleteAuthorFinally()"
                   type="button"
                   class="btn btn-primary"
                 >
-                  Yes, Delete
+                  Yes
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <!-- Delete Order Modal -->
         <!--end::App Content-->
       </main>
 
@@ -497,335 +488,251 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-      //  Get Order List
-      async function getOrders() {
-        const URL = "https://bs-api.sobuj.net/view/orders/readOrders.php";
-        let tableData = document.getElementById("orderList");
+      async function getBooks() {
+        let URL = "https://bs-api.sobuj.net/view/books/readBook.php";
+        let tableData = document.getElementById("bookList");
 
         try {
-          // Show initial Loader
-          tableData.innerHTML = "<tr><td colspan='7'>Loading.....</td></tr>";
+          //show loading message
+          tableData.innerHTML = "<tr><td colspan='6'>Loading.....</td></tr>";
 
-          // Fetch orders from API
+          //Fetch API from books
           let response = await axios.get(URL);
-          let orders = response.data;
+          let books = response.data;
 
-          // Clear loading message
+          //Clear loading message
           tableData.innerHTML = "";
 
-          // If no data exists .. show a text
-          if (!orders.length) {
+          //If no data exists .. show a text
+
+          if (!books.length) {
             tableData.innerHTML =
-              "<tr><td colspan='7'>No Order found</td></tr>";
+              "<tr><td colspan='5'>No Book found</td></tr>";
             return;
           }
 
-          // Append orders to the table
-          orders.forEach((order) => {
+          //Append data to table
+
+          books.forEach((book) => {
             let row = document.createElement("tr");
             row.innerHTML = `
-              <td>${order["order_id"]}</td>
-              <td>${order["customer_name"]}</td>
-              <td>${order["customer_email"]}</td>
-              <td>${order["order_date"]}</td>
-              <td>${order["total_amount"]}</td>
-              <td><button class="btn btn-success edit-btn" data-id="${order["order_id"]}">View</button></td>
-              <td><button class="btn btn-danger delete-btn" data-id="${order["order_id"]}">Delete</button></td>
-            `;
+                    <td>${book["book_id"]}</td>
+                    <td>${book["title"]}</td>
+                    <td>${book["price"]}</td>
+                    <td>${book["stock_quantity"]}</td>
+                    <td><button class="btn btn-success update-btn" data-id="${book["book_id"]}">Update</button></td>
+                    <td><button class="btn btn-danger delete-btn" data-id="${book["book_id"]}">Delete</button></td>
+                `;
             tableData.appendChild(row);
           });
 
-          // Add Event Listeners to view buttons
-          document.querySelectorAll(".edit-btn").forEach((btn) => {
+          //Add event listner for update data fetch
+          document.querySelectorAll(".update-btn").forEach((btn) => {
             btn.addEventListener("click", function () {
-              // get data id from data attribute and pass to view order function
-              viewOrderDetails(this.dataset.id);
+              goToUpdate(this.dataset.id);
             });
           });
 
-          // Add Event Listeners to view buttons
+          //Add event listner for delete data fetch
           document.querySelectorAll(".delete-btn").forEach((btn) => {
             btn.addEventListener("click", function () {
-              // get data id from data attribute and pass to delete order function
-              deleteOrder(this.dataset.id);
+              deleteAuthor(this.dataset.id);
             });
           });
-        } catch (e) {
+        } catch (error) {
+          console.error("Error for books:", error);
+          tableData.innerHTML =
+            "<tr><td colspan='5'>Failed to load book, try again</td></tr>";
         } finally {
+          console.log("Book fetch attempt completed");
         }
       }
-      getOrders();
 
-      // View Order Details
-      async function viewOrderDetails(orderId) {
+      getBooks();
+
+      async function addBook() {
+        let URL = "https://bs-api.sobuj.net/view/books/insertBook.php";
+        let bookTitle = document.getElementById("titleID").value.trim();
+        let bookPrice = document.getElementById("priceID").value.trim();
+        let bookStock = document.getElementById("stockID").value.trim();
+        let bookAuthor = document.getElementById("authorID").value.trim();
+      
         try {
-          const URL = `https://bs-api.sobuj.net/view/orders/getOrderById.php?order_id=${orderId}`;
+          // Validate all fields
+          if (!bookTitle || !bookPrice || !bookStock || !bookAuthor) {
+            alert("All fields are required");
+            return;
+          }
+      
+          // Append Data
+          let formData = new FormData();
+          formData.append("title", bookTitle);
+          formData.append("price", bookPrice);
+          formData.append("stock_qty", bookStock);
+          formData.append("author_id", bookAuthor);
+      
+          // Send the request
+          let response = await axios.post(URL, formData);
+          console.log("API Response:", response.data);
+      
+          // Check API response
+          if (response.status === 200 || response.status === 201) {
+            alert("Book successfully inserted");
+      
+            // Clear form fields
+            document.getElementById("titleID").value = "";
+            document.getElementById("priceID").value = "";
+            document.getElementById("stockID").value = "";
+            document.getElementById("authorID").value = "";
+      
+            // Close Modal (Corrected ID)
+            let modal = bootstrap.Modal.getInstance(document.getElementById("addAuthorModal"));
+            if (modal) modal.hide();
+      
+            // Refresh the book list
+            getBooks();
+          } else {
+            alert("Failed to add book. Server responded with: " + response.status);
+          }
+        } catch (error) {
+          console.error("Error adding book:", error);
+          alert("Failed to add book. Please try again.");
+        } finally {
+          console.log("Book add attempt completed");
+        }
+      }
 
-          // Getting Single Order Details
-          let orderResponse = await axios.get(URL);
-          let orderData = orderResponse.data;
+      let editBookID = null;
+      //Get update data details
+      async function goToUpdate(bookID) {
+        let URL = `https://bs-api.sobuj.net/view/books/getBookById.php?book_id=${bookID}`;
+        
 
-          // Populate the informations
-          document.getElementById("customerName").innerHTML =
-            orderData.customer_name;
+        try {
+          let response = await axios.get(URL);
+          let bookData = response.data;
 
-          document.getElementById("customerEmail").innerHTML =
-            orderData.customer_email;
-          document.getElementById("orderDate").innerHTML = orderData.order_date;
-          document.getElementById("totalAmount").innerHTML =
-            orderData.total_amount;
+          if (bookData) {
+            //populate data
 
-          // Clear the table body before appending new rows
-          let orderItemsTableBody = document.getElementById(
-            "orderItemsTableBody"
-          );
-          orderItemsTableBody.innerHTML = "";
+            document.getElementById("titleIDE").value = bookData.title;
+            document.getElementById("priceIDE").value = bookData.price;
+            document.getElementById("stockIDE").value = bookData.stock_qty;
+            editBookID = bookID;
 
-          for (let item of orderData.order_details) {
-            let bookResponse = await axios.get(
-              `https://bs-api.sobuj.net/view/books/getBookById.php?book_id=${item.book_id}`
+            //show modal
+            let editModal = new bootstrap.Modal(
+              document.getElementById("editBookModal")
             );
+            editModal.show();
+          } else {
+            alert("Book not found");
+          }
+        } catch (error) {
+          console.error("Text", error);
+          alert("Book load failed");
+        }
+      }
 
-            let book = bookResponse.data;
+      async function updateBook() {
+        let URL = "https://bs-api.sobuj.net/view/books/updateBook.php";
+        let bookTitle = document.getElementById("titleIDE").value.trim();
+        let bookPrice = document.getElementById("priceIDE").value.trim();
+        let bookStock = document.getElementById("stockIDE").value.trim();
 
-            // Inserting book to the table row
-            let row = document.createElement("tr");
-            row.innerHTML = `
-              <td>${book.title}</td>
-              <td>${item.quantity}</td>
-              <td>${item.price}</td>
-              <td>${item.line_total}</td>
-            `;
-            orderItemsTableBody.appendChild(row);
+        try {
+          //Validate
+          if (!bookTitle || !bookPrice || !bookStock) {
+            alert("All data required");
+            return;
           }
 
-          // Show the modal
-          let modal = new bootstrap.Modal(
-            document.getElementById("orderDetailsModal")
-          );
-          modal.show();
-        } catch (e) {
-          console.log("Error in fetching order details:", e);
+          //Append Data
+          let formData = new FormData();
+          formData.append("author_id", editBookID);
+          formData.append("title", bookTitle);
+          formData.append("price", bookPrice);
+          formData.append("stock_qty", bookStock);
+
+          //send the request
+          let response = await axios.post(URL, formData);
+
+          //Check API response
+          if (response.status === 200) {
+            alert("Book successfully Updated");
+            document.getElementById("titleIDE").value = "";
+            document.getElementById("priceIDE").value = "";
+            document.getElementById("stockIDE").value = "";
+
+            //Close Modal
+            let modal = bootstrap.Modal.getInstance(
+              document.getElementById("editBookModal")
+            );
+            modal.hide();
+
+            //Refresh the list
+            getBooks();
+          } else {
+            alert("Failed to Update book");
+          }
+        } catch (error) {
+          console.error("Erors for update book", error);
+          alert("Failed, try again");
         } finally {
-          console.log("Order Details Fetched");
+          console.log("book update att completed");
         }
       }
 
-      // View Order Details
+      //Delete modal show
+      let deleteAuthorID = null;
 
-      // Delete order
-      let deleteOrderID = null;
-
-      // Function to open delete order modal
-      function deleteOrder(orderID) {
-        deleteOrderID = orderID;
-        // show the modal
+      function deleteAuthor(authorID) {
+        deleteAuthorID = authorID;
+        //show delete modal
         let deleteModal = new bootstrap.Modal(
-          document.getElementById("deleteOrderModal")
+          document.getElementById("deleteAuthorModal")
         );
         deleteModal.show();
       }
 
-      // Final order delete
-      async function deleteOrderFinally() {
-        const URL = "https://bs-api.sobuj.net/view/orders/deleteOrder.php";
+      //Delete finally
+
+      async function deleteAuthorFinally() {
+        let URL = "https://bs-api.sobuj.net/view/authors/deleteAuthor.php";
 
         try {
-          // Check if the deleteOrder is valid
-          if (!deleteOrderID) {
-            alter("Invalid Order ID");
+          if (!deleteAuthorID) {
+            alert("Invalid ID");
             return;
           }
 
-          // Prepare data to send the API
+          //Append data
           let formData = new FormData();
-          formData.append("order_id", deleteOrderID);
+          formData.append("author_id", deleteAuthorID);
 
-          // send the delete request
+          //send the req
           let response = await axios.post(URL, formData);
 
-          // check api response
+          //check API response
           if (response.status === 200) {
-            alert("Order deleted successfully");
+            alert("Success");
 
-            // hide the modal
+            //close the modal
             let modal = bootstrap.Modal.getInstance(
-              document.getElementById("deleteOrderModal")
+              document.getElementById("deleteAuthorModal")
             );
             modal.hide();
 
-            // refresh the order list
-            getOrders();
+            //refresh
+            getAuthors();
           } else {
-            console.log("failed to delete");
+            alert("Failed to delete author");
           }
-        } catch (e) {
-          console.log("Error in deleting order", e);
-        } finally {
-          console.log("Order deleted");
+        } catch (error) {
+          console.error("Test ", error);
+          alert("Delete failed, try again");
         }
       }
-      // Delete order
-    </script>
-
-    <script>
-      // Create Orders
-      let booksData = [];
-      let customersData = [];
-
-      // Fetch Customers
-      async function fetchCustomers() {
-        let customerSelect = document.getElementById("customerSelect");
-        const customerURL =
-          "https://bs-api.sobuj.net/view/customers/readCustomers.php";
-        try {
-          let response = await axios.get(customerURL);
-          customersData = response.data;
-
-          customerSelect.innerHTML = `<option value="">Select a customer</option>`;
-          customersData.forEach((customer) => {
-            customerSelect.innerHTML += `<option value="${customer.customer_id}">${customer.name} - ${customer.email} </option>`;
-          });
-        } catch (e) {
-          console.log("Error in fetching customers", e);
-          customerSelect.innerHTML = `<option value="">Failed to load customer</option>`;
-        } finally {
-          console.log("Customers Fetched");
-        }
-      }
-
-      // Fetch Books
-      async function fetchBooks() {
-        try {
-          const booksURL = "https://bs-api.sobuj.net/view/books/readBook.php";
-          let response = await axios.get(booksURL);
-          booksData = response.data;
-        } catch (e) {
-          console.log("Error in fetching books", e);
-        }
-      }
-
-      // Add book's row
-      function addBookRow() {
-        let container = document.getElementById("booksContainer");
-
-        let rowIndex = container.children.length;
-
-        // Creating row
-        let row = document.createElement("div");
-        row.className = "row mb-2";
-
-        row.innerHTML = `
-          <div class="col-md-5">
-            <select class="form-select book-select" onchange="updatePrice(${rowIndex})">
-              <option value="">Select a book</option>
-              ${booksData
-                .map((book) => {
-                  return `<option value="${book.book_id}" data-price="${book.price}" data-author="${book.author}">${book.title} - $${book.price} by ${book.author}</option>`;
-                })
-                .join("")}
-            </select>
-          </div>
-          <div class="col-md-3">
-              <input type="number" class="form-control quantity-input" min="1" value="1" onchange="updatePrice(${rowIndex})">
-          </div>
-          <div class="col-md-3">
-            <input type="text" class="form-control line-total" value="0.00" readonly>
-          </div>
-          <div class="col-md-1">
-            <button type="button" class="btn btn-danger" onClick="removeBookRow(this)">X</button>
-          </div>
-        `;
-        container.appendChild(row);
-      }
-
-      // updatePrice(1);
-      // Update Price based on the selected books
-      function updatePrice(index) {
-        let row = document.getElementById("booksContainer").children[index];
-        let bookSelect = row.querySelector(".book-select");
-        let quantityInput = row.querySelector(".quantity-input");
-        let lineTotalInput = row.querySelector(".line-total");
-
-        let selectedBook = bookSelect.options[bookSelect.selectedIndex];
-        let price = parseFloat(selectedBook.getAttribute("data-price") || 0);
-        let quantity = parseInt(quantityInput.value || 1);
-
-        lineTotalInput.value = (price * quantity).toFixed(2);
-      }
-
-      // Remove book row from the modal
-      function removeBookRow(button) {
-        button.parentElement.parentElement.remove();
-      }
-
-      async function createOrder() {
-        let customerId = document.getElementById("customerSelect").value;
-        if (!customerId) {
-          alert("Please select a customer");
-          return;
-        }
-
-        let orderDetails = [];
-        document.querySelectorAll("#booksContainer .row").forEach((row) => {
-          let bookSelect = row.querySelector(".book-select");
-          let quantityInput = row.querySelector(".quantity-input");
-          let lineTotalInput = row.querySelector(".line-total");
-
-          if (bookSelect.value) {
-            orderDetails.push({
-              book_id: bookSelect.value,
-              quantity: quantityInput.value,
-              line_total: lineTotalInput.value,
-            });
-          }
-        });
-
-        // Check if order has a value
-        if (orderDetails.length === 0) {
-          alert("Please add at least one book to the order");
-          return;
-        }
-
-        // Prepare Order Data
-        let orderData = {
-          customer_id: customerId,
-          order_details: orderDetails,
-        };
-
-        console.log("Sending order data");
-
-        // Sending Create API Request
-        try {
-          const createOrderURL =
-            "https://bs-api.sobuj.net/view/orders/insertOrder.php";
-
-          let response = await axios.post(createOrderURL, orderData, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          if (response.status === 200) {
-            alert("Order created successfully");
-          }
-          document.getElementById("booksContainer").innerHTML = "";
-          let modal = bootstrap.Modal.getInstance(
-            document.getElementById("createOrderModal")
-          );
-          modal.hide();
-          getOrders();
-        } catch (e) {
-          console.log("Error in creating order", e);
-        }
-      }
-
-      // fetch customers and books
-      window.onload = () => {
-        fetchCustomers();
-        fetchBooks();
-      };
-
-      // Create Orders
     </script>
 
     <!--end::Script-->
